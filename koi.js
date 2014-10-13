@@ -19,12 +19,15 @@ function createBody(){
     body.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
     fish.add(body);
 
-    // side fins
-
     // tail fin
     fish = addTailFin(fish);
 
+    // side fins
+    fish = addSideFins(fish);
+
     // eyes
+    fish = addEyes(fish);
+    
     // mouth?
 
     return fish;
@@ -74,13 +77,43 @@ function addTailFin(fish){
 
 };
 
-// function createSideFin(){
+function createSideFin(){
+    var sideFinGeometry = new THREE.SphereGeometry(sideFinParams.sideFinRadius,
+                                                   sideFinParams.sphereDetail,
+                                                   sideFinParams.sphereDetail,
+                                                   0, 2*Math.PI, //horizontal sweep 
+                                                   0, Math.PI/2); //vertical sweep 
+    
+    var sideFinMaterial = new THREE.MeshBasicMaterial( {color: sideFinParams.sideFinColor} );
 
-// };
+    var sideFinMesh = new THREE.Mesh(sideFinGeometry, sideFinMaterial);
 
-// function addSideFins(){
+    return sideFinMesh;
 
-// };
+};
+
+function addSideFins(fish){
+
+    var leftSideFinFrame = new THREE.Object3D();
+    var leftSideFin = createSideFin();
+    leftSideFinFrame.add(leftSideFin);
+    leftSideFin.position.z = bodyParams.bodyRadius;
+    fish.add(leftSideFinFrame);
+    leftSideFinFrame.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
+    leftSideFinFrame.rotation.x = sideFinParams.sideFinRotationX;
+    leftSideFinFrame.rotation.y = sideFinParams.sideFinRotationY;
+
+    var rightSideFinFrame = new THREE.Object3D();
+    var rightSideFin = createSideFin();
+    rightSideFinFrame.add(rightSideFin);
+    rightSideFin.position.z = bodyParams.bodyRadius;
+    fish.add(rightSideFinFrame);
+    rightSideFinFrame.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
+    rightSideFinFrame.rotation.x = -leftSideFinFrame.rotation.x;
+    rightSideFinFrame.rotation.y = -leftSideFinFrame.rotation.y;
+
+    return fish;
+};
 
 // function createEyes(){
 
@@ -127,6 +160,14 @@ var tailFinParams = {tailFinRadius: 5,
                      sphereDetail: 30
                     };
 
+var sideFinParams = {sideFinRadius: 5,
+                     sideFinColor: 0xffffff,
+                     sideFinRotationX: -.2,
+                     sideFinRotationY: -1,
+                     sphereDetail: 30
+                    };
+
+
 // instantiate the fish
 var fish = createBody(bodyParams);
 scene.add(fish);
@@ -154,4 +195,7 @@ gui.add(tailFinParams, 'tailFinRotationX', -Math.PI, Math.PI).onChange(redraw);
 gui.add(tailFinParams, 'tailFinRotationY', -Math.PI, Math.PI).onChange(redraw);
 gui.addColor(tailFinParams, 'tailFinColor').onChange(redraw);
 
-
+gui.add(sideFinParams, 'sideFinRadius', 0, 10).onChange(redraw);
+gui.add(sideFinParams, 'sideFinRotationX', -Math.PI, Math.PI).onChange(redraw);
+gui.add(sideFinParams, 'sideFinRotationY', -Math.PI, Math.PI).onChange(redraw);
+gui.addColor(sideFinParams, 'sideFinColor').onChange(redraw);
