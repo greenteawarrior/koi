@@ -20,64 +20,65 @@ function createBody(){
     fish.add(body);
 
     // side fins
-    fish = addSideFins(fish);
 
     // tail fin
+    fish = addTailFin(fish);
+
     // eyes
     // mouth?
 
     return fish;
 };
 
-function createSideFin(){
-    var sideFinGeometry = new THREE.SphereGeometry(sideFinParams.sideFinRadius,
-                                                   sideFinParams.sphereDetail,
-                                                   sideFinParams.sphereDetail,
+function createTailFin(){
+    var tailFinGeometry = new THREE.SphereGeometry(tailFinParams.tailFinRadius,
+                                                   tailFinParams.sphereDetail,
+                                                   tailFinParams.sphereDetail,
                                                    0, 2*Math.PI, //horizontal sweep 
                                                    0, 2*Math.PI); //vertical sweep 
     
-    var sideFinMaterial = new THREE.MeshBasicMaterial( {color: sideFinParams.sideFinColor} );
+    var tailFinMaterial = new THREE.MeshBasicMaterial( {color: tailFinParams.tailFinColor} );
 
-    var sideFinMesh = new THREE.Mesh(sideFinGeometry, sideFinMaterial);
+    var tailFinMesh = new THREE.Mesh(tailFinGeometry, tailFinMaterial);
 
-    return sideFinMesh;
+    return tailFinMesh;
 
 };
 
-function addSideFins(fish){
-    var leftSideFinFrame = new THREE.Object3D();
-    var rightSideFinFrame = new THREE.Object3D();
+function addTailFin(fish){
+    var topTailFinFrame = new THREE.Object3D();
+    var bottomTailFinFrame = new THREE.Object3D();
 
-    var leftSideFin = createSideFin();
-    var rightSideFin = createSideFin();
+    var topTailFin = createTailFin();
+    var bottomTailFin = createTailFin();
 
-    leftSideFinFrame.add(leftSideFin);
-    rightSideFinFrame.add(rightSideFin);
+    topTailFinFrame.add(topTailFin);
+    bottomTailFinFrame.add(bottomTailFin);
 
-    leftSideFin.position.z = bodyParams.bodyRadius; 
-    rightSideFin.position.z = bodyParams.bodyRadius;
+    topTailFin.position.z = bodyParams.bodyRadius; 
+    bottomTailFin.position.z = bodyParams.bodyRadius;
 
-    fish.add(leftSideFinFrame);
-    fish.add(rightSideFinFrame);
+    fish.add(topTailFinFrame);
+    fish.add(bottomTailFinFrame);
 
-    leftSideFinFrame.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
-    rightSideFinFrame.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
+    topTailFinFrame.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
+    bottomTailFinFrame.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
 
-    leftSideFinFrame.rotation.x = sideFinParams.sideFinRotationX;
-    leftSideFinFrame.rotation.y = sideFinParams.sideFinRotationY;
+    topTailFinFrame.rotation.x = tailFinParams.tailFinRotationX;
+    topTailFinFrame.rotation.y = tailFinParams.tailFinRotationY;
 
-    rightSideFinFrame.rotation.x = - leftSideFinFrame.rotation.x;
-    rightSideFinFrame.rotation.y = - leftSideFinFrame.rotation.y;
+    bottomTailFinFrame.rotation.x = - topTailFinFrame.rotation.x;
+    bottomTailFinFrame.rotation.y = - topTailFinFrame.rotation.y;
 
     return fish;
 
 };
 
-// function createTailFin(){
+// function createSideFin(){
 
 // };
 
-// function addTailFin(){
+// function addSideFins(){
 
 // };
 
@@ -119,10 +120,10 @@ var bodyParams = {bodyScaleX: 1.0,
                   segments: 32
                  };
 
-var sideFinParams = {sideFinRadius: 5,
-                     sideFinColor: 0xffffff,
-                     sideFinRotationX: Math.PI/16,
-                     sideFinRotationY: 0,
+var tailFinParams = {tailFinRadius: 5,
+                     tailFinColor: 0xffffff,
+                     tailFinRotationX: Math.PI/16,
+                     tailFinRotationY: 0,
                      sphereDetail: 30
                     };
 
@@ -148,9 +149,9 @@ gui.add(bodyParams, 'bodyScaleZ', 0, 2).onChange(redraw);
 gui.addColor(bodyParams, 'bodyColor').onChange(redraw);
 gui.add(bodyParams, 'bodyRadius', 0, 10).onChange(redraw);
 
-gui.add(sideFinParams, 'sideFinRadius', 0, 10).onChange(redraw);
-gui.add(sideFinParams, 'sideFinRotationX', -Math.PI, Math.PI).onChange(redraw);
-gui.add(sideFinParams, 'sideFinRotationY', -Math.PI, Math.PI).onChange(redraw);
-gui.addColor(sideFinParams, 'sideFinColor').onChange(redraw);
+gui.add(tailFinParams, 'tailFinRadius', 0, 10).onChange(redraw);
+gui.add(tailFinParams, 'tailFinRotationX', -Math.PI, Math.PI).onChange(redraw);
+gui.add(tailFinParams, 'tailFinRotationY', -Math.PI, Math.PI).onChange(redraw);
+gui.addColor(tailFinParams, 'tailFinColor').onChange(redraw);
 
 
