@@ -32,7 +32,9 @@ function createBody(){
 function createSideFin(){
     var sideFinGeometry = new THREE.SphereGeometry(sideFinParams.sideFinRadius,
                                                    sideFinParams.sphereDetail,
-                                                   sideFinParams.sphereDetail);
+                                                   sideFinParams.sphereDetail,
+                                                   0, 2*Math.PI, //horizontal sweep 
+                                                   0, 2*Math.PI); //vertical sweep 
     
     var sideFinMaterial = new THREE.MeshBasicMaterial( {color: sideFinParams.sideFinColor} );
 
@@ -52,11 +54,14 @@ function addSideFins(fish){
     leftSideFinFrame.add(leftSideFin);
     rightSideFinFrame.add(rightSideFin);
 
-    leftSideFin.position.z = bodyParams.bodyRadius * bodyParams.bodyScaleZ;
-    rightSideFin.position.z = bodyParams.bodyRadius * bodyParams.bodyScaleZ;
+    leftSideFin.position.z = bodyParams.bodyRadius; 
+    rightSideFin.position.z = bodyParams.bodyRadius;
 
     fish.add(leftSideFinFrame);
     fish.add(rightSideFinFrame);
+
+    leftSideFinFrame.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
+    rightSideFinFrame.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
 
     leftSideFinFrame.rotation.x = sideFinParams.sideFinRotationX;
     leftSideFinFrame.rotation.y = sideFinParams.sideFinRotationY;
@@ -116,7 +121,7 @@ var bodyParams = {bodyScaleX: 1.0,
 
 var sideFinParams = {sideFinRadius: 5,
                      sideFinColor: 0xffffff,
-                     sideFinRotationX: 0,
+                     sideFinRotationX: Math.PI/16,
                      sideFinRotationY: 0,
                      sphereDetail: 30
                     };
