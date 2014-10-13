@@ -7,10 +7,10 @@
 // TODO: fish needs body parts. fins, eyes 
 //       nested coordinate frames are your best friend here!
 function createBody(){
-    var bodyGeometry = new THREE.SphereGeometry( 5, 32, 32 );
-    var bodyMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+    var bodyGeometry = new THREE.SphereGeometry( bodyParams.bodyRadius, bodyParams.segments, bodyParams.segments);
+    var bodyMaterial = new THREE.MeshBasicMaterial( {color: bodyParams.bodyColor} );
     var body = new THREE.Mesh( bodyGeometry, bodyMaterial );
-    body.scale.set(bodyParams.scaleX, bodyParams.scaleY, bodyParams.scaleZ);
+    body.scale.set(bodyParams.bodyScaleX, bodyParams.bodyScaleY, bodyParams.bodyScaleZ);
 
     return body;
 };
@@ -29,9 +29,12 @@ function redraw() {
 var scene = new THREE.Scene();
 
 // koiParams 
-var bodyParams = {scaleX: 1.0,
-                  scaleY: 1.2, 
-                  scaleZ: 1.5};
+var bodyParams = {bodyScaleX: 1.0,
+                  bodyScaleY: 1.2, 
+                  bodyScaleZ: 1.5,
+                  bodyColor: 0xffff00,
+                  bodyRadius: 5,
+                  segments: 32};
 
 // instantiate the initial body
 var body = createBody(bodyParams);
@@ -49,6 +52,8 @@ TW.cameraSetup(renderer,
 
 // a gui for testing and flexibility purposes
 var gui = new dat.GUI();
-gui.add(bodyParams, 'scaleX', 0, 2).onChange(redraw);
-gui.add(bodyParams, 'scaleY', 0, 2).onChange(redraw);
-gui.add(bodyParams, 'scaleZ', 0, 2).onChange(redraw);
+gui.add(bodyParams, 'bodyScaleX', 0, 2).onChange(redraw);
+gui.add(bodyParams, 'bodyScaleY', 0, 2).onChange(redraw);
+gui.add(bodyParams, 'bodyScaleZ', 0, 2).onChange(redraw);
+gui.addColor(bodyParams, 'bodyColor').onChange(redraw);
+gui.add(bodyParams, 'bodyRadius', 0, 10).onChange(redraw);
