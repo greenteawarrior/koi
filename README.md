@@ -1,4 +1,5 @@
-greenteagraphics
+koi
 ================
 
-some personal projects with the THREE.js library
+Fall 2014
+CS307 Final Project - Koi Pond made with three.js
