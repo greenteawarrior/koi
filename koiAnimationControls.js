@@ -16,8 +16,8 @@ Possible animations:
 
 var aniParams = {
     deltaT: 0.03,
-    koiVelocityX:,
-    koiInitialX:,
+    koiVelocityX:1,
+    koiInitialX:0,
     lastparam: null // because javascript syntax. delete this later
 };
 
@@ -37,22 +37,24 @@ resetAnimationState();
 
 
 function setKoiPosition(time) {
-    // 
+    koiPositionX = aniParams.koiInitialX + aniParams.koiVelocityX * time
+    koi.position.x = koiPositionX;
+    return koiPositionX;
 }
 
 
 function firstState(){
     resetAnimationState();
-    // do stuff
+    animationState.koiPosition = setKoiPosition(animationState.time);
     TW.render();
 }
 
 function updateState(){
     // changes the time and recalculates as needed for the timestep
-
-    // update the koi state
-
-    // update the lilypad state
+    animationState.time += aniParams.deltaT;
+    animationState.koiPositionX = setKoiPosition(animationState.time);
+    // animationState.lilypadPosition = setLilyPadPosition(animationState.time);
+    console.log("Time: "+animationState.time+" and koiPositionX: "+animationState.koiPositionX);
 }
 
 function oneStep(){

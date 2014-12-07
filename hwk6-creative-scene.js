@@ -28,9 +28,11 @@ var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer();
 TW.mainInit(renderer,scene);
 
+var koi;
+
 function makeScene() {
     scene.remove(koi);
-    var koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
+    koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
     koi.name = "koi";
     scene.add(koi);
 }
