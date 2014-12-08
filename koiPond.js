@@ -18,7 +18,9 @@ isPowerOf2() and textureMaterial(), which are all necessary for this code to wor
 /// Materials! =================================================================
 // textureMaterial is a helper function in eqwangKoi.js
 // these images should be in the same directory
-var bgMaterial = textureMaterial('grass.jpg', 1, 1);
+// var bgMaterial = textureMaterial('grass.jpg', 1, 1);
+var bgMaterial = textureMaterial('skyGrassPond.jpg', 1, 1);
+
 var purpleScaleMaterial = textureMaterial('koiPurpleSeamlessTexture.jpg',3, 4);
 var sparkleMaterial = textureMaterial('silverSparkleTexture.jpg',1, 1);
 var waterMaterial = textureMaterial('riverBottomTexture.jpg', 1, 1);
@@ -45,15 +47,15 @@ function makeScene() {
 
     koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
     koi.name = "koi";
-    koi.position.set(0, -10, 0);
+    koi.position.set(0, -25, 0);
     koi.scale.set(.5, .5, .5);
     scene.add(koi);
 
-    lilypad1 = makeLilypad([10, -5, 0]);
+    lilypad1 = makeLilypad([7, -20, 0]);
     lilypad1.name = "lilypad1";
     scene.add(lilypad1);
 
-    lilypad2 = makeLilypad([-25, -5, -5]);
+    lilypad2 = makeLilypad([-15, -20, -5]);
     lilypad2.name = "lilypad2";
     scene.add(lilypad2);
 
@@ -94,31 +96,31 @@ function makeRock() {
     return hullMesh;
 }
 
-for (var i=-4; i<4; i++){
+for (var i=-5; i<5; i++){
     rock = makeRock();
     rock.scale.set(.45, .45, .45);
-    rock.position.set(i*10, -5, 29);
+    rock.position.set(i*10, -14, 42);
     scene.add(rock);
 }
 
-for (var i=-4; i<4; i++){
+for (var i=-5; i<5; i++){
     rock = makeRock();
     rock.scale.set(.45, .45, .45);
-    rock.position.set(i*10, -5, -29);
+    rock.position.set(i*10, -14, -42);
     scene.add(rock);
 }
 
-for (var i=-4; i<4; i++){
+for (var i=-5; i<5; i++){
     rock = makeRock();
     rock.scale.set(.45, .45, .45);
-    rock.position.set(29, -5, i*10);
+    rock.position.set(42, -14, i*10);
     scene.add(rock);
 }
 
-for (var i=-4; i<4; i++){
+for (var i=-5; i<5; i++){
     rock = makeRock();
     rock.scale.set(.45, .45, .45);
-    rock.position.set(-29, -5, i*10);
+    rock.position.set(-42, -14, i*10);
     scene.add(rock);
 }
 

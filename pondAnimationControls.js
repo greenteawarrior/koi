@@ -36,12 +36,12 @@ function resetAnimationState(){
         koiPositionX: aniParams.koiInitialX,
         koiPositionY: aniParams.koiInitialY,
         koiPositionZ: aniParams.koiInitialZ,
-        lilypad1PositionX: getRandomInt(-15, 15),
+        lilypad1PositionX: getRandomInt(-7, 7),
         lilypad1PositionY: -20,
-        lilypad1PositionZ: getRandomInt(-15, 15),
-        lilypad2PositionX: getRandomInt(-15, 15),
+        lilypad1PositionZ: getRandomInt(-7, 7),
+        lilypad2PositionX: getRandomInt(-7, 7),
         lilypad2PositionY: -20,
-        lilypad2PositionZ: getRandomInt(-15, 15),
+        lilypad2PositionZ: getRandomInt(-7, 7),
         time: 0,
         lastParam: null
     };
@@ -61,13 +61,6 @@ function setKoiPosition(time) {
 
 function setLilypadPosition(time) {
 
-    // lilypad.position.x += getRandomInt(-10, 10)/100;
-    // animationState.lilypadPositionX = lilypad.position.x;
-
-    // lilypad.position.z += getRandomInt(-10, 10)/100;
-    // animationState.lilypadPositionZ = lilypad.position.z;
-
-
     lilypad1.position.x += getRandomInt(-10, 10)/100;
     animationState.lilypad1PositionX = lilypad1.position.x;
 
@@ -80,8 +73,6 @@ function setLilypadPosition(time) {
 
     lilypad2.position.z += getRandomInt(-10, 10)/100;
     animationState.lilypad2PositionZ = lilypad2.position.z;
-
-
 }
 
 function firstState(){
@@ -94,7 +85,7 @@ function firstState(){
 function updateState(){
     // changes the time and recalculates as needed for the timestep
     animationState.time += aniParams.deltaT;
-    // if (time >= 30.8) {break}
+    if (animationState.time >= 28) {return;}
     setKoiPosition(animationState.time);
     setLilypadPosition();
     console.log("Time: "+animationState.time+" and koiPositionX: "+animationState.koiPositionX);

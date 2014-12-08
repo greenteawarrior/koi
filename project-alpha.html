@@ -10,8 +10,8 @@ December 8, 2014
 
     <style>
     canvas {
-      width: 900;
-      height: 500;
+      width: 1024;
+      height: 512;
     }
 
     @font-face {
@@ -54,7 +54,6 @@ December 8, 2014
     <h2>Koi Pond (CS307 - alpha version of final project)<h2>
     <h3>Emily Wang | December 8, 2014</h3>
 
-
     <!-- <script src="http://cs.wellesley.edu/~cs307/threejs/contrib/eqwangKoi.js"></script> -->
     <script src="ConvexGeometry.js"></script>  
     <script src="eqwangKoi.js"></script>
@@ -65,19 +64,22 @@ December 8, 2014
     <h4>Features of this iteration of the koi pond:</h4>
     <ul>
       <li> Bezier curves + Lathe geometries for the fish body, fins, and lilypad!
-      <li> Coordinate transforms for placing the fins/eyes
+      <li> Coordinate transforms for placing the fins/eyes and fish body shape
       <li> Convex geometries (rock borders)
       <li> Phong materials; Ambient and Directional lights
       <li> Texture mapping with images
+      <li> Animation techniques: positional (fish) + derivative (lilypads' pseudorandom movement)
     </ul>
 
-    <h4> Feature list for next iteration(s):</h4>
+    <h4>Potential feature list for next iteration(s):</h4>
     <ul>
       <li> <a href="http://jeremybouny.fr/ocean/demo/">Water shader</a>
-      <li> Fish geometry: Binary subtraction to get a more flowy/curved tail fin
       <li> Fin animations (relative to overall body movement)
       <li> Animation: Robust collisions
-      <li> Fish friends 
+      <li> Animation: Fish friends 
+      <li> Fish geometry: Binary subtraction to get a more flowy/curved tail fin
+      <li> More scenery: a more realistic world backdrop
+      <li> More scenary: water transparency
       <li> More scenery: flowers for the lilypads, path, bridge
       <li> Camera: Different views of the pond
     </ul>
