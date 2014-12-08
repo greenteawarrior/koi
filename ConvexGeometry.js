@@ -213,7 +213,6 @@ THREE.ConvexGeometry = function( vertices ) {
 
 	}
 
-	this.computeCentroids();
 	this.computeFaceNormals();
 	this.computeVertexNormals();
 

@@ -22,6 +22,7 @@ var bgMaterial = textureMaterial('grass.jpg', 1, 1);
 var purpleScaleMaterial = textureMaterial('koiPurpleSeamlessTexture.jpg',3, 4);
 var sparkleMaterial = textureMaterial('silverSparkleTexture.jpg',1, 1);
 var waterMaterial = textureMaterial('riverBottomTexture.jpg', 1, 1);
+var rockMaterial = textureMaterial('rock.jpg', 1, 1);
 
 waterMaterial.side = THREE.BackSide;
 bgMaterial.side = THREE.FrontSide;
@@ -72,8 +73,9 @@ scene.add(pondCubeMesh);
 
 // Rocks! ======================================================================
 
-// from the convex geometry examples
-function generatePoints() {
+function makeRock() {
+    // adapted the generatePoints() function from the convex geometry examples
+
     // add 10 random spheres
     var points = [];
     for (var i = 0; i < 20; i++) {
@@ -84,26 +86,65 @@ function generatePoints() {
         points.push(new THREE.Vector3(randomX, randomY, randomZ));
     }
 
-    spGroup = new THREE.Object3D();
-    var material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: false});
+    // spGroup = new THREE.Object3D();
+    // var material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: fa e});
 
-    points.forEach(function (point) {
+    // points.forEach(function (point) {
 
-        var spGeom = new THREE.SphereGeometry(0.2);
-        var spMesh = new THREE.Mesh(spGeom, material);
-        spMesh.position = point;
-        spGroup.add(spMesh);
-    });
-    // add the points as a group to the scene
-    scene.add(spGroup);
+    //     var spGeom = new THREE.SphereGeometry(0.2);
+    //     var spMesh = new THREE.Mesh(spGeom, material);
+    //     spMesh.position = point;
+    //     spGroup.add(spMesh);
+    // });
+    // // add the points as a group to the scene
+    // scene.add(spGroup);
 
     // use the same points to create a convexgeometry
     var hullGeometry = new THREE.ConvexGeometry(points);
-    // hullMesh = new THREE.Mesh (hullGeometry, material);
+    hullMesh = new THREE.Mesh (hullGeometry, rockMaterial);
+    return hullMesh;
+    // hullMesh.scale.set(.5, .5, .5);
     // scene.add(hullMesh);
 }
 
-generatePoints();
+for (var i=-5; i<5; i++){
+    rock = makeRock();
+    rock.scale.set(.45, .45, .45);
+    rock.position.set(i*10, -5, 35);
+    scene.add(rock);
+}
+
+for (var i=-5; i<5; i++){
+    rock = makeRock();
+    rock.scale.set(.45, .45, .45);
+    rock.position.set(i*10, -5, -35);
+    scene.add(rock);
+}
+
+for (var i=-5; i<5; i++){
+    rock = makeRock();
+    rock.scale.set(.45, .45, .45);
+    rock.position.set(35, -5, i*10);
+    scene.add(rock);
+}
+
+for (var i=-5; i<5; i++){
+    rock = makeRock();
+    rock.scale.set(.45, .45, .45);
+    rock.position.set(-35, -5, i*10);
+    scene.add(rock);
+}
+
+// rock = makeRock();
+// rock.scale.set(.5, .5, .5);
+// rock.position.set(0, -5, -35);
+// scene.add(rock);
+
+// rock = makeRock();
+// rock.scale.set(.5, .5, .5);
+// rock.position.set(10, -5, -35);
+// scene.add(rock);
+
 
 // ambient light, directional light, and camera! ===============================
 
