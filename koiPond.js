@@ -23,9 +23,11 @@ var purpleScaleMaterial = textureMaterial('koiPurpleSeamlessTexture.jpg',3, 4);
 var sparkleMaterial = textureMaterial('silverSparkleTexture.jpg',1, 1);
 var waterMaterial = textureMaterial('riverBottomTexture.jpg', 1, 1);
 var rockMaterial = textureMaterial('rock.jpg', 1, 1);
+var skyMaterial = textureMaterial('sky.jpg', 1, 1);
 
 waterMaterial.side = THREE.BackSide;
-bgMaterial.side = THREE.FrontSide;
+bgMaterial.side = THREE.BackSide;
+skyMaterial.side = THREE.BackSide;
 
 /// Scene! =====================================================================
 var scene = new THREE.Scene();
@@ -44,14 +46,14 @@ function makeScene() {
     koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
     koi.name = "koi";
     koi.position.set(0, -10, 0);
-    koi.scale.set(.75, .75, .75);
+    koi.scale.set(.5, .5, .5);
     scene.add(koi);
 
-    lilypad1 = makeLilypad([10, 0, 0]);
+    lilypad1 = makeLilypad([10, -5, 0]);
     lilypad1.name = "lilypad1";
     scene.add(lilypad1);
 
-    lilypad2 = makeLilypad([-25, 0, -5]);
+    lilypad2 = makeLilypad([-25, -5, -5]);
     lilypad2.name = "lilypad2";
     scene.add(lilypad2);
 
@@ -59,10 +61,10 @@ function makeScene() {
 makeScene();
 
 /// Pond textures inside of a cube for a scene background ======================
-var pondCubeGeom = new THREE.BoxGeometry(200, 200, 200);
+var pondCubeGeom = new THREE.BoxGeometry(100, 100, 100);
 var pondCubeMaterial = new THREE.MeshFaceMaterial([ bgMaterial,
                                                     bgMaterial,
-                                                    bgMaterial,
+                                                    skyMaterial,
                                                     waterMaterial,
                                                     bgMaterial,
                                                     bgMaterial,
@@ -86,65 +88,39 @@ function makeRock() {
         points.push(new THREE.Vector3(randomX, randomY, randomZ));
     }
 
-    // spGroup = new THREE.Object3D();
-    // var material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: fa e});
-
-    // points.forEach(function (point) {
-
-    //     var spGeom = new THREE.SphereGeometry(0.2);
-    //     var spMesh = new THREE.Mesh(spGeom, material);
-    //     spMesh.position = point;
-    //     spGroup.add(spMesh);
-    // });
-    // // add the points as a group to the scene
-    // scene.add(spGroup);
-
     // use the same points to create a convexgeometry
     var hullGeometry = new THREE.ConvexGeometry(points);
     hullMesh = new THREE.Mesh (hullGeometry, rockMaterial);
     return hullMesh;
-    // hullMesh.scale.set(.5, .5, .5);
-    // scene.add(hullMesh);
 }
 
-for (var i=-5; i<5; i++){
+for (var i=-4; i<4; i++){
     rock = makeRock();
     rock.scale.set(.45, .45, .45);
-    rock.position.set(i*10, -5, 35);
+    rock.position.set(i*10, -5, 29);
     scene.add(rock);
 }
 
-for (var i=-5; i<5; i++){
+for (var i=-4; i<4; i++){
     rock = makeRock();
     rock.scale.set(.45, .45, .45);
-    rock.position.set(i*10, -5, -35);
+    rock.position.set(i*10, -5, -29);
     scene.add(rock);
 }
 
-for (var i=-5; i<5; i++){
+for (var i=-4; i<4; i++){
     rock = makeRock();
     rock.scale.set(.45, .45, .45);
-    rock.position.set(35, -5, i*10);
+    rock.position.set(29, -5, i*10);
     scene.add(rock);
 }
 
-for (var i=-5; i<5; i++){
+for (var i=-4; i<4; i++){
     rock = makeRock();
     rock.scale.set(.45, .45, .45);
-    rock.position.set(-35, -5, i*10);
+    rock.position.set(-29, -5, i*10);
     scene.add(rock);
 }
-
-// rock = makeRock();
-// rock.scale.set(.5, .5, .5);
-// rock.position.set(0, -5, -35);
-// scene.add(rock);
-
-// rock = makeRock();
-// rock.scale.set(.5, .5, .5);
-// rock.position.set(10, -5, -35);
-// scene.add(rock);
-
 
 // ambient light, directional light, and camera! ===============================
 
