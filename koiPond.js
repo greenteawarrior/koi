@@ -18,10 +18,13 @@ isPowerOf2() and textureMaterial(), which are all necessary for this code to wor
 /// Materials! =================================================================
 // textureMaterial is a helper function in eqwangKoi.js
 // these images should be in the same directory
+var bgMaterial = textureMaterial('grass.jpg', 1, 1);
 var purpleScaleMaterial = textureMaterial('koiPurpleSeamlessTexture.jpg',3, 4);
 var sparkleMaterial = textureMaterial('silverSparkleTexture.jpg',1, 1);
 var waterMaterial = textureMaterial('riverBottomTexture.jpg', 1, 1);
+
 waterMaterial.side = THREE.BackSide;
+bgMaterial.side = THREE.BackSide;
 
 /// Scene! =====================================================================
 var scene = new THREE.Scene();
@@ -56,15 +59,14 @@ makeScene();
 
 /// Pond textures inside of a cube for a scene background ======================
 var pondCubeGeom = new THREE.BoxGeometry(200, 200, 200);
-var pondCubeMaterial = new THREE.MeshFaceMaterial([ waterMaterial,
+var pondCubeMaterial = new THREE.MeshFaceMaterial([ bgMaterial,
+                                                    bgMaterial,
+                                                    bgMaterial,
                                                     waterMaterial,
-                                                    waterMaterial,
-                                                    waterMaterial,
-                                                    waterMaterial,
-                                                    waterMaterial,
+                                                    bgMaterial,
+                                                    bgMaterial,
                                                     ] );
 var pondCubeMesh = new THREE.Mesh (pondCubeGeom, pondCubeMaterial)
-// pondCubeMesh.position.set(-20,0,20);
 pondCubeMesh.name = "pondCube";
 scene.add(pondCubeMesh);
 
