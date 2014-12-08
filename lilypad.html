@@ -1,10 +1,9 @@
+<!-- A single lilypad. :) -->
 <html>
   <head>
     <title>lilypad</title>
+
     <style>
-      /* feel free to style the canvas any way you want. If you want it to
-      use the entire window, set width: 100% and height: 100%. */
-      
       body { margin: 0px; padding: 0px }
 
       canvas {
@@ -13,14 +12,47 @@
           height: 100%;
       }
     </style>
+
     <script src="http://cs.wellesley.edu/~cs307/threejs/libs/three.min.js"></script>
     <script src="http://cs.wellesley.edu/~cs307/threejs/libs/tw.js"></script>
     <script src="http://cs.wellesley.edu/~cs307/threejs/libs/OrbitControls.js"></script>
+    <script src="lilypad.js"></script>
   </head>
-  
+
 <body>
 
-<script src="lilypad.js"></script>
+<script>
+
+var scene = new THREE.Scene();
+var renderer = new THREE.WebGLRenderer();
+
+TW.mainInit(renderer,scene);
+
+lilypad = makeLilypad();
+lilypad.name = "lilypad";
+scene.add(lilypad);
+
+var ambLight = new THREE.AmbientLight( 0xFFFFFF ); // soft white light 
+ambLight.name = "ambient";
+scene.add(ambLight);
+
+var directionalLight = new THREE.DirectionalLight( 0xffffff, .3 );
+directionalLight.position.set( 0, 1, 0); 
+directionalLight.name = "directional";
+scene.add(directionalLight);
+
+var cameraFOVY = 75;
+
+var state = TW.cameraSetup(renderer,
+                           scene,
+                           {minx: -6, maxx: 6,
+                            miny: -6, maxy: 6,
+                            minz: -8, maxz: 8},
+                           cameraFOVY);
+
+TW.render();
+
+</script>
 
 </body>
 </html>

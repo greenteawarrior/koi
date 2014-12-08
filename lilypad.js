@@ -1,8 +1,3 @@
-var scene = new THREE.Scene();
-var renderer = new THREE.WebGLRenderer();
-
-TW.mainInit(renderer,scene);
-
 function makeLilypad(){
   var points = [ [0.09854205631164525,0.21314391113458786,0],
                  [5.5581628344168195 ,0.07656743010282874,0],
@@ -32,27 +27,3 @@ function makeLilypad(){
   latheObj = new THREE.Mesh (geom, mat2);
   return latheObj;
 }
-
-lilypad = makeLilypad();
-lilypad.name = "lilypad";
-scene.add(lilypad);
-
-var ambLight = new THREE.AmbientLight( 0xFFFFFF ); // soft white light 
-ambLight.name = "ambient";
-scene.add(ambLight);
-
-var directionalLight = new THREE.DirectionalLight( 0xffffff, .3 );
-directionalLight.position.set( 0, 1, 0); 
-directionalLight.name = "directional";
-scene.add(directionalLight);
-
-var cameraFOVY = 75;
-
-var state = TW.cameraSetup(renderer,
-                           scene,
-                           {minx: -6, maxx: 6,
-                            miny: -6, maxy: 6,
-                            minz: -8, maxz: 8},
-                           cameraFOVY);
-
-TW.render();
