@@ -22,6 +22,9 @@ var aniParams = {
     koiInitialX:0,
     koiInitialY:0,
     koiInitialZ:0,
+    lilypadInitialX:0,
+    lilypadInitialY:0,
+    lilypadInitialZ:0,
     lastparam: null // because javascript syntax. delete this later
 };
 
@@ -33,6 +36,9 @@ function resetAnimationState(){
         koiPositionX: aniParams.koiInitialX,
         koiPositionY: aniParams.koiInitialY,
         koiPositionZ: aniParams.koiInitialZ,
+        lilypadPositionX: getRandomInt(-15, 15),
+        lilypadPositionY: getRandomInt(-15, 15),
+        lilypadPositionZ: 0,
         time: 0,
         lastParam: null
     };
@@ -47,20 +53,31 @@ function getRandomInt(min, max) {
 function setKoiPosition(time) {
     koiPositionX = aniParams.koiInitialX + aniParams.koiVelocityX * time
     koi.position.x = koiPositionX;
-    return koiPositionX;
+    animationState.koiPositionX = koiPositionX;
+}
+
+function setLilypadPosition(time) {
+
+    lilypad.position.x += getRandomInt(-10, 10)/100
+    animationState.lilypadPositionX = lilypad.position.x
+
+    lilypad.position.z += getRandomInt(-10, 10)/100
+    animationState.lilypadPositionZ = lilypad.position.z
+
 }
 
 function firstState(){
     resetAnimationState();
     animationState.koiPosition = setKoiPosition(animationState.time);
+    // animationState.lilypadPosition = setLilypadPosition(animationState.time);
     TW.render();
 }
 
 function updateState(){
     // changes the time and recalculates as needed for the timestep
     animationState.time += aniParams.deltaT;
-    animationState.koiPositionX = setKoiPosition(animationState.time);
-    // animationState.lilypadPosition = setLilyPadPosition(animationState.time);
+    setKoiPosition(animationState.time);
+    setLilypadPosition();
     console.log("Time: "+animationState.time+" and koiPositionX: "+animationState.koiPositionX);
 }
 

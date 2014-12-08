@@ -29,9 +29,12 @@ var renderer = new THREE.WebGLRenderer();
 TW.mainInit(renderer,scene);
 
 var koi;
+var lilypad;
 
 function makeScene() {
     scene.remove(koi);
+    scene.remove(lilypad);
+
     koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
     koi.name = "koi";
     koi.position.set(0, -10, -22)
