@@ -362,7 +362,7 @@ function textureMaterial(url, sRepeat, tRepeat) {
     texture.repeat.set( sRepeat, tRepeat );
 
     texture.needsUpdate = true;
-    var mat = new THREE.MeshPhongMaterial();
+    var mat = new THREE.MeshPhongMaterial({side: THREE.DoubleSide});
     mat.map = texture;          // I always get "mat" and "map" mixed up! 
     mat.name = "texture from: "+url;
     return mat;
