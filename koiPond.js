@@ -24,7 +24,7 @@ var sparkleMaterial = textureMaterial('silverSparkleTexture.jpg',1, 1);
 var waterMaterial = textureMaterial('riverBottomTexture.jpg', 1, 1);
 
 waterMaterial.side = THREE.BackSide;
-bgMaterial.side = THREE.BackSide;
+bgMaterial.side = THREE.FrontSide;
 
 /// Scene! =====================================================================
 var scene = new THREE.Scene();
@@ -69,6 +69,41 @@ var pondCubeMaterial = new THREE.MeshFaceMaterial([ bgMaterial,
 var pondCubeMesh = new THREE.Mesh (pondCubeGeom, pondCubeMaterial)
 pondCubeMesh.name = "pondCube";
 scene.add(pondCubeMesh);
+
+// Rocks! ======================================================================
+
+// from the convex geometry examples
+function generatePoints() {
+    // add 10 random spheres
+    var points = [];
+    for (var i = 0; i < 20; i++) {
+        var randomX = -15 + Math.round(Math.random() * 30);
+        var randomY = -15 + Math.round(Math.random() * 30);
+        var randomZ = -15 + Math.round(Math.random() * 30);
+
+        points.push(new THREE.Vector3(randomX, randomY, randomZ));
+    }
+
+    spGroup = new THREE.Object3D();
+    var material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: false});
+
+    points.forEach(function (point) {
+
+        var spGeom = new THREE.SphereGeometry(0.2);
+        var spMesh = new THREE.Mesh(spGeom, material);
+        spMesh.position = point;
+        spGroup.add(spMesh);
+    });
+    // add the points as a group to the scene
+    scene.add(spGroup);
+
+    // use the same points to create a convexgeometry
+    var hullGeometry = new THREE.ConvexGeometry(points);
+    // hullMesh = new THREE.Mesh (hullGeometry, material);
+    // scene.add(hullMesh);
+}
+
+generatePoints();
 
 // ambient light, directional light, and camera! ===============================
 
