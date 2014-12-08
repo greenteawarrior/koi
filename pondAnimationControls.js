@@ -23,8 +23,8 @@ var aniParams = {
     koiInitialY:0,
     koiInitialZ:0,
     lilypadInitialX:0,
-    lilypadInitialY:0,
-    lilypadInitialZ:0,
+    lilypadInitialY:-10,
+    lilypadInitialZ:-22,
     lastparam: null // because javascript syntax. delete this later
 };
 
@@ -36,9 +36,12 @@ function resetAnimationState(){
         koiPositionX: aniParams.koiInitialX,
         koiPositionY: aniParams.koiInitialY,
         koiPositionZ: aniParams.koiInitialZ,
-        lilypadPositionX: getRandomInt(-15, 15),
-        lilypadPositionY: getRandomInt(-15, 15),
-        lilypadPositionZ: 0,
+        lilypad1PositionX: getRandomInt(-15, 15),
+        lilypad1PositionY: getRandomInt(-15, 15),
+        lilypad1PositionZ: 0,
+        lilypad2PositionX: getRandomInt(-15, 15),
+        lilypad2PositionY: getRandomInt(-15, 15),
+        lilypad2PositionZ: 0,
         time: 0,
         lastParam: null
     };
@@ -51,18 +54,33 @@ function getRandomInt(min, max) {
 }
 
 function setKoiPosition(time) {
-    koiPositionX = aniParams.koiInitialX + aniParams.koiVelocityX * time
-    koi.position.x = koiPositionX;
-    animationState.koiPositionX = koiPositionX;
+    koiPositionZ = aniParams.koiInitialZ - aniParams.koiVelocityZ * time
+    koi.position.z = koiPositionZ;
+    animationState.koiPositionZ = koiPositionZ;
 }
 
 function setLilypadPosition(time) {
 
-    lilypad.position.x += getRandomInt(-10, 10)/100
-    animationState.lilypadPositionX = lilypad.position.x
+    // lilypad.position.x += getRandomInt(-10, 10)/100;
+    // animationState.lilypadPositionX = lilypad.position.x;
 
-    lilypad.position.z += getRandomInt(-10, 10)/100
-    animationState.lilypadPositionZ = lilypad.position.z
+    // lilypad.position.z += getRandomInt(-10, 10)/100;
+    // animationState.lilypadPositionZ = lilypad.position.z;
+
+
+    lilypad1.position.x += getRandomInt(-10, 10)/100;
+    animationState.lilypad1PositionX = lilypad1.position.x;
+
+    lilypad1.position.z += getRandomInt(-10, 10)/100;
+    animationState.lilypad1PositionZ = lilypad1.position.z;
+
+
+    lilypad2.position.x += getRandomInt(-10, 10)/100;
+    animationState.lilypad2PositionX = lilypad2.position.x;
+
+    lilypad2.position.z += getRandomInt(-10, 10)/100;
+    animationState.lilypad2PositionZ = lilypad2.position.z;
+
 
 }
 

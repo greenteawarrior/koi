@@ -29,20 +29,28 @@ var renderer = new THREE.WebGLRenderer();
 TW.mainInit(renderer,scene);
 
 var koi;
-var lilypad;
+var lilypad1;
+var lilypad2;
 
 function makeScene() {
     scene.remove(koi);
-    scene.remove(lilypad);
+    scene.remove(lilypad1);
+    scene.remove(lilypad2);
 
     koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
     koi.name = "koi";
-    koi.position.set(0, -10, -22)
+    koi.position.set(0, -10, 0);
+    koi.scale.set(.75, .75, .75);
     scene.add(koi);
 
-    lilypad = makeLilypad([10, 0, 0]);
-    lilypad.name = "lilypad";
-    scene.add(lilypad);
+    lilypad1 = makeLilypad([10, 0, 0]);
+    lilypad1.name = "lilypad1";
+    scene.add(lilypad1);
+
+    lilypad2 = makeLilypad([-25, 0, -5]);
+    lilypad2.name = "lilypad2";
+    scene.add(lilypad2);
+
 }
 makeScene();
 
@@ -74,7 +82,7 @@ scene.add(directionalLight);
 var state = TW.cameraSetup(renderer,
                            scene,
                            {minx: -3.5, maxx: 3.5,
-                            miny: -8, maxy: 7,
+                            miny: -8, maxy: 3,
                             minz: -30, maxz: 30});
 
 TW.viewFromAbove();
