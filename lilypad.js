@@ -1,4 +1,5 @@
-function makeLilypad(){
+function makeLilypad(startPos) {
+
   var points = [ [0.09854205631164525,0.21314391113458786,0],
                  [5.5581628344168195 ,0.07656743010282874,0],
                  [5.3855802774864205 ,1.7510186911939858 ,0]];
@@ -26,5 +27,6 @@ function makeLilypad(){
                                           side: THREE.DoubleSide});
   latheObj = new THREE.Mesh (geom, mat2);
   latheObj.rotation.set(3*Math.PI/2, 0, 0);
+  latheObj.position.set(startPos[0], startPos[1], startPos[2]);
   return latheObj;
 }

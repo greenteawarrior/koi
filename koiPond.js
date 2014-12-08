@@ -34,12 +34,17 @@ function makeScene() {
     scene.remove(koi);
     koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
     koi.name = "koi";
+    koi.position.set(0, -10, -22)
     scene.add(koi);
+
+    lilypad = makeLilypad([10, 0, 0]);
+    lilypad.name = "lilypad";
+    scene.add(lilypad);
 }
 makeScene();
 
 /// Pond textures inside of a cube for a scene background ======================
-var pondCubeGeom = new THREE.BoxGeometry(100, 100, 100);
+var pondCubeGeom = new THREE.BoxGeometry(200, 200, 200);
 var pondCubeMaterial = new THREE.MeshFaceMaterial([ waterMaterial,
                                                     waterMaterial,
                                                     waterMaterial,
@@ -48,7 +53,7 @@ var pondCubeMaterial = new THREE.MeshFaceMaterial([ waterMaterial,
                                                     waterMaterial,
                                                     ] );
 var pondCubeMesh = new THREE.Mesh (pondCubeGeom, pondCubeMaterial)
-pondCubeMesh.position.set(-20,0,20);
+// pondCubeMesh.position.set(-20,0,20);
 pondCubeMesh.name = "pondCube";
 scene.add(pondCubeMesh);
 
@@ -67,6 +72,6 @@ var state = TW.cameraSetup(renderer,
                            scene,
                            {minx: -3.5, maxx: 3.5,
                             miny: -8, maxy: 7,
-                            minz: -0, maxz: 44});
+                            minz: -30, maxz: 30});
 
-TW.viewFromSide();
+TW.viewFromAbove();

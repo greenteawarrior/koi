@@ -17,7 +17,11 @@ Possible animations:
 var aniParams = {
     deltaT: 0.03,
     koiVelocityX:1,
+    koiVelocityY:0,
+    koiVelocityZ:1,
     koiInitialX:0,
+    koiInitialY:0,
+    koiInitialZ:0,
     lastparam: null // because javascript syntax. delete this later
 };
 
@@ -27,6 +31,8 @@ var animationState;
 function resetAnimationState(){
     animationState = {
         koiPositionX: aniParams.koiInitialX,
+        koiPositionY: aniParams.koiInitialY,
+        koiPositionZ: aniParams.koiInitialZ,
         time: 0,
         lastParam: null
     };
@@ -34,14 +40,15 @@ function resetAnimationState(){
 
 resetAnimationState();
 
-
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 function setKoiPosition(time) {
     koiPositionX = aniParams.koiInitialX + aniParams.koiVelocityX * time
     koi.position.x = koiPositionX;
     return koiPositionX;
 }
-
 
 function firstState(){
     resetAnimationState();
@@ -61,9 +68,6 @@ function oneStep(){
     updateState();
     TW.render();
 }
-
-
-
 
 var animationId = null; // so we can cancel the animation if we want
 
