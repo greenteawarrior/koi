@@ -1,9 +1,10 @@
 /*
-CS307 - hwk6 - Creative Scene
+CS307 Project - Koi Pond!
 Emily Wang
-November 24, 2014
+December 2014
 
-Code for setting up the creative scene of a purple koi fish in a pond.
+Code for a koi pond (see koiAnimationControls.js for the animation business).
+
 Includes materials, instances of the koi and pond, lights, and the camera 
 parameters to make the scene.
 
@@ -22,15 +23,20 @@ var sparkleMaterial = textureMaterial('silverSparkleTexture.jpg',1, 1);
 var waterMaterial = textureMaterial('riverBottomTexture.jpg', 1, 1);
 waterMaterial.side = THREE.BackSide;
 
-/// scene! =====================================================================
+/// Scene! =====================================================================
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer();
 TW.mainInit(renderer,scene);
 
-/// koi! =======================================================================
-var koiFrame = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
-koiFrame.name = "koi";
-scene.add(koiFrame);
+var koi;
+
+function makeScene() {
+    scene.remove(koi);
+    koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
+    koi.name = "koi";
+    scene.add(koi);
+}
+makeScene();
 
 /// Pond textures inside of a cube for a scene background ======================
 var pondCubeGeom = new THREE.BoxGeometry(100, 100, 100);
@@ -64,4 +70,3 @@ var state = TW.cameraSetup(renderer,
                             minz: -0, maxz: 44});
 
 TW.viewFromSide();
-// rendering happens in the texture material callback in eqwangKoi.js!
