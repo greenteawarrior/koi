@@ -25,5 +25,6 @@ function makeLilypad(){
                                           shininess: 20,
                                           side: THREE.DoubleSide});
   latheObj = new THREE.Mesh (geom, mat2);
+  latheObj.rotation.set(3*Math.PI/2, 0, 0);
   return latheObj;
 }
