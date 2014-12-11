@@ -43,6 +43,10 @@ interested in building upon this work!
     The fish does not come with lighting. 
     
 */
+
+// TODO: Is there something to make the koi double-sided/complete 
+//       (so it's not obviously hollow??)
+
 function eqwangKoi(scaleMaterial, finMaterial) {
     // koi container
     var koiFrame = new THREE.Object3D();
@@ -113,57 +117,109 @@ function eqwangKoi(scaleMaterial, finMaterial) {
         return pts;
     }
 
-    function makeKoiBodyPoints() {
-        /* Returns an array of points that can be used to create a lathe 
-           geometry for the koi fish body!
+    // function makeKoiBodyPoints() {
+    //     /* Returns an array of points that can be used to create a lathe 
+    //        geometry for the koi fish body!
 
-           The lathe geometry points for the koi body are generated from a 
-           series of Bezier curves. The current koi body is made from four
-           connected Bezier curves. Feel free to tweak the control point values 
-           or add more curves as desired to edit the shape of the fish! 
+    //        The lathe geometry points for the koi body are generated from a 
+    //        series of Bezier curves. The current koi body is made from four
+    //        connected Bezier curves. Feel free to tweak the control point values 
+    //        or add more curves as desired to edit the shape of the fish! 
 
-           Note: The code for this function is structured in chunks for each
-           Bezier curve. It may be a bit wordy but it's straightforward. This code
-           could be edited for compactness in the future if desired.*/
+    //        Note: The code for this function is structured in chunks for each
+    //        Bezier curve. It may be a bit wordy but it's straightforward. This code
+    //        could be edited for compactness in the future if desired.*/
 
-        var points = [];
+    //     var points = [];
 
-        // 0th bezier curve
+    //     // 0th bezier curve
+    //     // head
+    //     var P3 = [1, 6.5, 0];
+    //     var P2 = [1, 6.5, 0];
+    //     var P1 = [3, 3, 0];
+    //     var P0 = [3, 0, 0];
+    //     var CPS = [P0,P1,P2,P3];
+    //     points.push(testBezierCurve(CPS, 30));
+
+    //     // 1st bezier curve
+    //     // front body
+    //     var P3 = [3, 0, 0];
+    //     var P2 = [3.5, -6, 0];
+    //     var P1 = [4, -10, 0];
+    //     var P0 = [4.5, -14, 0];
+    //     var CPS = [P0,P1,P2,P3];
+    //     points.push(testBezierCurve(CPS, 30));
+
+    //     // 2nd bezier curve
+    //     // back body
+    //     var P3 = [4.5, -14, 0];
+    //     var P2 = [6,-20, 0];
+    //     var P1 = [2.5, -23, 0];
+    //     var P0 = [1.5, -32, 0];
+    //     var CPS = [P0,P1,P2,P3];
+    //     points.push(testBezierCurve(CPS, 30));
+
+    //     // 3rd bezier curve
+    //     // tail
+    //     var P0 = [1.5, -32, 0];
+    //     var P1 = [3, -34, 0];
+    //     var P2 = [3, -35, 0];
+    //     var P3 = [4.1,-36, 0];
+    //     var CPS = [P0,P1,P2,P3];
+    //     points.push(testBezierCurve(CPS, 30));
+
+    //     // processing the array so it can be fed into THREE.LatheGeometry()
+    //     points = gettingPoints(points);
+
+    //     return points;
+    // }
+
+    //TODO: edit control point values on makeKoiHeadPoints()
+    //use the creative scene webpage to debug!
+    function makeKoiHeadPoints(){
+
         var P3 = [1, 6.5, 0];
         var P2 = [1, 6.5, 0];
         var P1 = [3, 3, 0];
         var P0 = [3, 0, 0];
         var CPS = [P0,P1,P2,P3];
-        points.push(testBezierCurve(CPS, 30));
+        return CPS;
+    }
 
-        // 1st bezier curve
+    //TODO: edit control point values on makeKoiFrontBodyPoints()
+    //use the creative scene webpage to debug!
+    function makeKoiFrontBodyPoints(){
+
         var P3 = [3, 0, 0];
         var P2 = [3.5, -6, 0];
         var P1 = [4, -10, 0];
         var P0 = [4.5, -14, 0];
         var CPS = [P0,P1,P2,P3];
-        points.push(testBezierCurve(CPS, 30));
+        return CPS;
+    }
 
-        // 2nd bezier curve
+    //TODO: edit control point values on makeKoiBackBodyPoints()
+    //use the creative scene webpage to debug!
+    function makeKoiBackBodyPoints(){
+
         var P3 = [4.5, -14, 0];
         var P2 = [6,-20, 0];
         var P1 = [2.5, -23, 0];
         var P0 = [1.5, -32, 0];
         var CPS = [P0,P1,P2,P3];
-        points.push(testBezierCurve(CPS, 30));
+        return CPS;
+    }
 
-        // 3rd bezier curve
+    //TODO: edit control point values on makeKoiTailPoints()
+    //use the creative scene webpage to debug!
+    function makeKoiTailPoints(){
+
         var P0 = [1.5, -32, 0];
         var P1 = [3, -34, 0];
         var P2 = [3, -35, 0];
         var P3 = [4.1,-36, 0];
         var CPS = [P0,P1,P2,P3];
-        points.push(testBezierCurve(CPS, 30));
-
-        // processing the array so it can be fed into THREE.LatheGeometry()
-        points = gettingPoints(points);
-
-        return points;
+        return CPS;
     }
 
     function makeKoiTopFinPoints() {
@@ -235,21 +291,90 @@ function eqwangKoi(scaleMaterial, finMaterial) {
         return eyeMesh;    
     }
 
-    /// Body! ==================================================================
+    // /// Body! ==================================================================
 
-    var koiBodyPoints = makeKoiBodyPoints();
-    var koiBodyGeom = new THREE.LatheGeometry( getPoints(koiBodyPoints) );
+    // var koiBodyPoints = makeKoiBodyPoints();
+    // var koiBodyGeom = new THREE.LatheGeometry( getPoints(koiBodyPoints) );
+    // var scaleMaterialClone = scaleMaterial.clone();
+    // var koiBody = new THREE.Mesh (koiBodyGeom, scaleMaterialClone);
+    
+    // // use coordinate transforms to alter the shape and position of the 
+    // // fish as desired
+    // koiBody.scale.set(.55, 1, 1);
+    // koiBody.rotation.set(Math.PI, 0, 0);
+    // koiBody.position.set(0,0,6.5); // so the x,y,z axes of the canvas are at the head of the fish
+
+    // koiBody.name = "koiBody";
+    // koiFrame.add(koiBody);
+
+    /// Head! ==================================================================
+
+    var koiHeadPoints = makeKoiHeadPoints();
+    var koiHeadGeom = new THREE.LatheGeometry( getPoints(koiHeadPoints) );
     var scaleMaterialClone = scaleMaterial.clone();
-    var koiBody = new THREE.Mesh (koiBodyGeom, scaleMaterialClone);
+    var koiHead = new THREE.Mesh (koiHeadGeom, scaleMaterialClone);
     
     // use coordinate transforms to alter the shape and position of the 
     // fish as desired
-    koiBody.scale.set(.55, 1, 1);
-    koiBody.rotation.set(Math.PI, 0, 0);
-    koiBody.position.set(0,0,6.5); // so the x,y,z axes of the canvas are at the head of the fish
+    koiHead.scale.set(.55, 1, 1);
+    koiHead.rotation.set(Math.PI, 0, 0);
+    koiHead.position.set(0,0,6.5); // so the x,y,z axes of the canvas are at the head of the fish
 
-    koiBody.name = "koiBody";
-    koiFrame.add(koiBody);
+    koiHead.name = "koiHead";
+    koiFrame.add(koiHead);
+
+    /// Front Body! ==================================================================
+
+    var koiFrontBodyPoints = makeKoiFrontBodyPoints();
+    var koiFrontBodyGeom = new THREE.LatheGeometry( getPoints(koiFrontBodyPoints) );
+    var scaleMaterialClone = scaleMaterial.clone();
+    var koiFrontBody = new THREE.Mesh (koiFrontBodyGeom, scaleMaterialClone);
+    
+    // use coordinate transforms to alter the shape and position of the 
+    // fish as desired
+    koiFrontBody.scale.set(.55, 1, 1);
+    koiFrontBody.rotation.set(Math.PI, 0, 0);
+    koiFrontBody.position.set(0,0,6.5); // so the x,y,z axes of the canvas are at the FrontBody of the fish
+
+    koiFrontBody.name = "koiFrontBody";
+    // TODO: uncomment when ready to work on front body control points
+    // koiFrame.add(koiFrontBody);
+
+    /// Back Body! ==================================================================
+
+    var koiBackBodyPoints = makeKoiBackBodyPoints();
+    var koiBackBodyGeom = new THREE.LatheGeometry( getPoints(koiBackBodyPoints) );
+    var scaleMaterialClone = scaleMaterial.clone();
+    var koiBackBody = new THREE.Mesh (koiBackBodyGeom, scaleMaterialClone);
+    
+    // use coordinate transforms to alter the shape and position of the 
+    // fish as desired
+    koiBackBody.scale.set(.55, 1, 1);
+    koiBackBody.rotation.set(Math.PI, 0, 0);
+    koiBackBody.position.set(0,0,6.5); // so the x,y,z axes of the canvas are at the BackBody of the fish
+
+    koiBackBody.name = "koiBackBody";
+    // TODO: uncomment when ready to work on back body control points
+    // koiFrame.add(koiBackBody);
+
+    /// Tail ! ==================================================================
+    // TODO: consider doing something fancy with binary subtraction to get
+    // a pretty fish tail shape!!
+
+    var koiTailPoints = makeKoiTailPoints();
+    var koiTailGeom = new THREE.LatheGeometry( getPoints(koiTailPoints) );
+    var scaleMaterialClone = scaleMaterial.clone();
+    var koiTail = new THREE.Mesh (koiTailGeom, scaleMaterialClone);
+    
+    // use coordinate transforms to alter the shape and position of the 
+    // fish as desired
+    koiTail.scale.set(.55, 1, 1);
+    koiTail.rotation.set(Math.PI, 0, 0);
+    koiTail.position.set(0,0,6.5); // so the x,y,z axes of the canvas are at the Tail of the fish
+
+    koiTail.name = "koiTail";
+    // TODO: uncomment when ready to work on tail control points
+    // koiFrame.add(koiTail);
 
     /// Eyes! ==================================================================
 

@@ -63,5 +63,6 @@ var state = TW.cameraSetup(renderer,
                             miny: -8, maxy: 7,
                             minz: -0, maxz: 44});
 
-TW.viewFromSide();
+// TW.viewFromSide();
+TW.viewFromAbove();
 // rendering happens in the texture material callback in eqwangKoi.js!
