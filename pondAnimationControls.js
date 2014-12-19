@@ -10,6 +10,13 @@ Possible animations:
 * Lilypads randomly floating in the water
 * Fins moving back and forth (i.e. swimming motions)
 
+
+lilypads
+1. sine wave y translation
+2. sine wave x rotation
+
+koi skeletal animation
+
 */
 
 // Animation and scene parameters
@@ -61,18 +68,12 @@ function setKoiPosition(time) {
 
 function setLilypadPosition(time) {
 
-    lilypad1.position.x += getRandomInt(-10, 10)/100;
-    animationState.lilypad1PositionX = lilypad1.position.x;
+    lilypad1.position.y += getRandomInt(-10, 10)/100;
+    animationState.lilypad1Positiony = lilypad1.position.y;
 
-    lilypad1.position.z += getRandomInt(-10, 10)/100;
-    animationState.lilypad1PositionZ = lilypad1.position.z;
+    lilypad2.position.y += getRandomInt(-10, 10)/100;
+    animationState.lilypad2Positiony = lilypad2.position.y;
 
-
-    lilypad2.position.x += getRandomInt(-10, 10)/100;
-    animationState.lilypad2PositionX = lilypad2.position.x;
-
-    lilypad2.position.z += getRandomInt(-10, 10)/100;
-    animationState.lilypad2PositionZ = lilypad2.position.z;
 }
 
 function firstState(){
