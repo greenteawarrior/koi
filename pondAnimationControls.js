@@ -79,20 +79,21 @@ function setLilypadPosition(time) {
 
     lilypad2.rotation.y = .1*Math.sin(time + 2) + .1*Math.cos(time + 2);
     animationState.lilypad2RotationY = lilypad2.rotation.Y;
-
 }
 
 function firstState(){
     resetAnimationState();
     animationState.koiPosition = setKoiPosition(animationState.time);
-    // animationState.lilypadPosition = setLilypadPosition(animationState.time);
     TW.render();
 }
 
 function updateState(){
     // changes the time and recalculates as needed for the timestep
     animationState.time += aniParams.deltaT;
-    if (animationState.time >= 28) {return;}
+
+    // right now the animation only runs for 28 timesteps (approximately how long it takes for the koi to swim through the pond)
+    if (animationState.time >= 28) {return;} 
+
     setKoiPosition(animationState.time);
     setLilypadPosition(animationState.time);
     console.log("Time: "+animationState.time+" and koiPositionX: "+animationState.koiPositionX);

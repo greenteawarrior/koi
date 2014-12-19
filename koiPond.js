@@ -40,12 +40,30 @@ var koi;
 var lilypad1;
 var lilypad2;
 
+// fin rotations for the koi body parts
+var finRotations = {topX: 3*Math.PI/2, 
+                    topY: 0,
+                    topZ: Math.PI,
+
+                    side0X: 5*Math.PI/4, 
+                    side0Y: 0,
+                    side0Z: Math.PI/2,
+
+                    side1X: 5*Math.PI/4, 
+                    side1Y: 0,
+                    side1Z: Math.PI/2,
+
+                    side2X: 5*Math.PI/4, 
+                    side2Y: 0,
+                    side2Z: Math.PI/2
+                    }
+
 function makeScene() {
     scene.remove(koi);
     scene.remove(lilypad1);
     scene.remove(lilypad2);
 
-    koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
+    koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial, finRotations);
     koi.name = "koi";
     koi.position.set(0, -25, 0);
     koi.scale.set(.5, .5, .5);
@@ -141,4 +159,4 @@ var state = TW.cameraSetup(renderer,
                             miny: -8, maxy: 3,
                             minz: -30, maxz: 30});
 
-TW.viewFromAbove();
+TW.viewFromAboveFrontSide();

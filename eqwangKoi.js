@@ -43,29 +43,9 @@ interested in building upon this work!
     The fish does not come with lighting. 
     
 */
-function eqwangKoi(scaleMaterial, finMaterial, flexAmplitude) {
+function eqwangKoi(scaleMaterial, finMaterial, finRotations) {
     // koi container
     var koiFrame = new THREE.Object3D();
-
-    var bodyFlexAmp = 0;
-
-    function flex(pointsToFlex, flexAmplitude){
-        // takes in points for a lathe geometry
-        // given an x position, calculates the flex for the geometry at that position
-
-        for (var i = 0; i <= pointsToFlex.length - 1; i++) {
-            console.log(pointsToFlex[i]);
-            console.log(flexAmplitude*Math.sin(pointsToFlex[i].x));
-            pointsToFlex[i].x += flexAmplitude*Math.sin(pointsToFlex[i].x); // should be whatever index the z dimension value is
-        };
-
-        console.log('flexing');        
-        return pointsToFlex;
-    }
-
-    function flexCPS(CPS, flexAmplitude){
-
-    }
 
     // Lathe geometry helper functions =========================================
     function testBezierCurve(cp,numSegs) {
@@ -259,7 +239,6 @@ function eqwangKoi(scaleMaterial, finMaterial, flexAmplitude) {
 
     var koiBodyPoints = makeKoiBodyPoints();
     koiBodyPoints = getPoints(koiBodyPoints);
-    koiBodyPoints = flex(koiBodyPoints, bodyFlexAmp);
     var koiBodyGeom = new THREE.LatheGeometry( koiBodyPoints );
     var scaleMaterialClone = scaleMaterial.clone();
     var koiBody = new THREE.Mesh (koiBodyGeom, scaleMaterialClone);
@@ -292,7 +271,6 @@ function eqwangKoi(scaleMaterial, finMaterial, flexAmplitude) {
     var koiTopFinPoints = makeKoiTopFinPoints();
     var koiTopFinPoints = getPoints(koiTopFinPoints);
     console.log(koiTopFinPoints);
-    // var koiTopFinPoints = flex(koiTopFinPoints, 20);
     var koiTopFinGeom = new THREE.LatheGeometry( koiTopFinPoints );
     var finMaterialClone = finMaterial.clone();
     var koiTopFin = new THREE.Mesh (koiTopFinGeom, finMaterialClone);
@@ -301,7 +279,7 @@ function eqwangKoi(scaleMaterial, finMaterial, flexAmplitude) {
     // the desired shape and position for the top fin on our koi fish
     koiTopFin.scale.set(.1, 1.7, .8);
     koiTopFin.position.set(0,1.5,24);
-    koiTopFin.rotation.set(3*Math.PI/2, 0, Math.PI);
+    koiTopFin.rotation.set(finRotations.topX, finRotations.topY, finRotations.topZ);
 
     koiTopFin.name = "koiTopFin";
     koiFrame.add(koiTopFin);
@@ -315,7 +293,7 @@ function eqwangKoi(scaleMaterial, finMaterial, flexAmplitude) {
     koiSideFin0 = makeKoiSideFin();
     koiSideFin0.scale.set(.2, .5, 1);
     koiSideFin0.position.set(1.75,-8,24);
-    koiSideFin0.rotation.set(5*Math.PI/4, 0, Math.PI/2);
+    koiSideFin0.rotation.set(finRotations.side0X, finRotations.side0Y, finRotations.side0Z);
     koiSideFin0.name = "koiSideFin0";
     koiFrame.add(koiSideFin0);
 
@@ -323,7 +301,7 @@ function eqwangKoi(scaleMaterial, finMaterial, flexAmplitude) {
     koiSideFin1 = makeKoiSideFin();
     koiSideFin1.scale.set(.2, .5, 1);
     koiSideFin1.position.set(-1.75,-8,24);
-    koiSideFin1.rotation.set(5*Math.PI/4, 0, Math.PI/2);
+    koiSideFin1.rotation.set(finRotations.side1X, finRotations.side1Y, finRotations.side1Z);
     koiSideFin1.name = "koiSideFin1";
     koiFrame.add(koiSideFin1);
 
@@ -331,7 +309,7 @@ function eqwangKoi(scaleMaterial, finMaterial, flexAmplitude) {
     koiSideFin2 = makeKoiSideFin();
     koiSideFin2.scale.set(.2, .5, 1);
     koiSideFin2.position.set(0,-5.5,36);
-    koiSideFin2.rotation.set(5*Math.PI/4, 0, Math.PI/2);
+    koiSideFin2.rotation.set(finRotations.side2X, finRotations.side2Y, finRotations.side2Z);
     koiSideFin2.name = "koiSideFin2";
     koiFrame.add(koiSideFin2);
 
