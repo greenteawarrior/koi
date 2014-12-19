@@ -5,17 +5,12 @@ December 2014
 
 Code for animating the koi pond.
 
-Possible animations:
-* Koi swimming in a line/circle/sinusoid path
-* Lilypads randomly floating in the water
-* Fins moving back and forth (i.e. swimming motions)
-
-
 lilypads
 1. sine wave y translation
 2. sine wave x rotation
 
 koi skeletal animation
+1. sine wave 
 
 */
 
@@ -29,8 +24,10 @@ var aniParams = {
     koiInitialX:0,
     koiInitialY:0,
     koiInitialZ:0,
-    lilypad1InitialY:-20,
+    lilypad1InitialY:-20, 
+    lilypad1InitialYRot: 0,
     lilypad2InitialY:-20, 
+    lilypad2InitialYRot: 0,
     lastparam: null // because javascript syntax. delete this later
 };
 
@@ -43,11 +40,15 @@ function resetAnimationState(){
         koiPositionY: aniParams.koiInitialY,
         koiPositionZ: aniParams.koiInitialZ,
         lilypad1PositionX: getRandomInt(-7, 7),
+        
         lilypad1PositionY: -20,
         lilypad1PositionZ: getRandomInt(-7, 7),
+        lilypad1RotationY: Math.PI,
+
         lilypad2PositionX: getRandomInt(-7, 7),
         lilypad2PositionY: -20,
         lilypad2PositionZ: getRandomInt(-7, 7),
+        lilypad2RotationY: Math.PI,
         time: 0,
         lastParam: null
     };
@@ -66,12 +67,18 @@ function setKoiPosition(time) {
 }
 
 function setLilypadPosition(time) {
-
+    // lilypads bounce up and down according to a sinusoid (y translations)
     lilypad1.position.y = aniParams.lilypad1InitialY + .5*Math.sin(time); 
-    animationState.lilypad1Positiony = lilypad1.position.y;
-
+    animationState.lilypad1PositionY = lilypad1.position.y;
     lilypad2.position.y = aniParams.lilypad2InitialY + .5*Math.sin(time + 2); 
-    animationState.lilypad2Positiony = lilypad2.position.y;
+    animationState.lilypad2PositionY = lilypad2.position.y;
+
+    // lilypads tilt as they float in the water (x axis rotations)
+    lilypad1.rotation.y = .1*Math.sin(time) + .1*Math.cos(time);
+    animationState.lilypad1RotationY = lilypad1.rotation.Y;
+
+    lilypad2.rotation.y = .1*Math.sin(time + 2) + .1*Math.cos(time + 2);
+    animationState.lilypad2RotationY = lilypad2.rotation.Y;
 
 }
 
