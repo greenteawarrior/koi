@@ -18,16 +18,24 @@ koi skeletal animation
 
 var aniParams = {
     deltaT: 0.03,
+
     koiVelocityX:1,
     koiVelocityY:0,
     koiVelocityZ:1,
     koiInitialX:0,
-    koiInitialY:0,
+    koiInitialY:-25,
     koiInitialZ:0,
+
+    koiInitialSideRotation0Z: Math.PI/2,
+    koiInitialSideRotation1Z: Math.PI/2,
+    koiInitialSideRotation2Z: Math.PI/2,
+
     lilypad1InitialY:-20, 
     lilypad1InitialYRot: 0,
+
     lilypad2InitialY:-20, 
     lilypad2InitialYRot: 0,
+
     lastparam: null // because javascript syntax. delete this later
 };
 
@@ -36,6 +44,9 @@ var animationState;
 
 function resetAnimationState(){
     animationState = {
+        time: 0,
+        sideRotationCounter: 0,
+
         koiPositionX: aniParams.koiInitialX,
         koiPositionY: aniParams.koiInitialY,
         koiPositionZ: aniParams.koiInitialZ,
@@ -49,7 +60,7 @@ function resetAnimationState(){
         lilypad2PositionY: -20,
         lilypad2PositionZ: getRandomInt(-7, 7),
         lilypad2RotationY: Math.PI,
-        time: 0,
+
         lastParam: null
     };
 }
@@ -64,6 +75,26 @@ function setKoiPosition(time) {
     koiPositionZ = aniParams.koiInitialZ - aniParams.koiVelocityZ * time
     koi.position.z = koiPositionZ;
     animationState.koiPositionZ = koiPositionZ;
+}
+
+function setKoiPositionWithSideRotations(time) {
+    // things that get updated in this timestep
+    koiPositionZ = aniParams.koiInitialZ - aniParams.koiVelocityZ * time
+    animationState.koiPositionZ = koiPositionZ;
+
+    // top and side fin movement with rotations
+    finRotations.topY = Math.PI/16 * Math.sin(animationState.time)
+    finRotations.side0Z = aniParams.koiInitialSideRotation0Z + Math.PI/8 * Math.sin(animationState.time)
+    finRotations.side1Z = aniParams.koiInitialSideRotation1Z + Math.PI/8 * Math.sin(animationState.time)
+    finRotations.side2Z = aniParams.koiInitialSideRotation2Z + Math.PI/8 * Math.sin(animationState.time)
+
+    // doing a remove and remake in here to allow for side fin animation
+    scene.remove(koi);
+    koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial, finRotations);
+    koi.name = "koi";
+    koi.position.set(animationState.koiPositionX, animationState.koiPositionY, animationState.koiPositionZ);
+    koi.scale.set(.5, .5, .5);
+    scene.add(koi);
 }
 
 function setLilypadPosition(time) {
@@ -94,7 +125,16 @@ function updateState(){
     // right now the animation only runs for 28 timesteps (approximately how long it takes for the koi to swim through the pond)
     if (animationState.time >= 28) {return;} 
 
-    setKoiPosition(animationState.time);
+    if (finRotations.finRotationsOn) {
+        animationState.sideRotationCounter += 1;
+        if (animationState.sideRotationCounter%10 == 0){
+            setKoiPositionWithSideRotations(animationState.time);
+        }
+    }
+    else {
+        setKoiPosition(animationState.time);
+    };
+
     setLilypadPosition(animationState.time);
     console.log("Time: "+animationState.time+" and koiPositionX: "+animationState.koiPositionX);
 }
@@ -121,3 +161,7 @@ TW.setKeyboardCallback("0",firstState,"reset animation");
 TW.setKeyboardCallback("1",oneStep,"advance by one step");
 TW.setKeyboardCallback("g",animate,"go:  start animation");
 TW.setKeyboardCallback(" ",stopAnimation,"stop animation");
+
+var gui = new dat.GUI();
+
+gui.add(finRotations,"finRotationsOn").onChange(resetAnimationState);

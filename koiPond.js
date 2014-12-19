@@ -41,7 +41,9 @@ var lilypad1;
 var lilypad2;
 
 // fin rotations for the koi body parts
-var finRotations = {topX: 3*Math.PI/2, 
+var finRotations = {finRotationsOn: false,
+
+                    topX: 3*Math.PI/2, 
                     topY: 0,
                     topZ: Math.PI,
 

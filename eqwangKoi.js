@@ -270,7 +270,6 @@ function eqwangKoi(scaleMaterial, finMaterial, finRotations) {
 
     var koiTopFinPoints = makeKoiTopFinPoints();
     var koiTopFinPoints = getPoints(koiTopFinPoints);
-    console.log(koiTopFinPoints);
     var koiTopFinGeom = new THREE.LatheGeometry( koiTopFinPoints );
     var finMaterialClone = finMaterial.clone();
     var koiTopFin = new THREE.Mesh (koiTopFinGeom, finMaterialClone);
