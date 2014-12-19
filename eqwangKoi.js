@@ -43,9 +43,29 @@ interested in building upon this work!
     The fish does not come with lighting. 
     
 */
-function eqwangKoi(scaleMaterial, finMaterial) {
+function eqwangKoi(scaleMaterial, finMaterial, flexAmplitude) {
     // koi container
     var koiFrame = new THREE.Object3D();
+
+    var bodyFlexAmp = 0;
+
+    function flex(pointsToFlex, flexAmplitude){
+        // takes in points for a lathe geometry
+        // given an x position, calculates the flex for the geometry at that position
+
+        for (var i = 0; i <= pointsToFlex.length - 1; i++) {
+            console.log(pointsToFlex[i]);
+            console.log(flexAmplitude*Math.sin(pointsToFlex[i].x));
+            pointsToFlex[i].x += flexAmplitude*Math.sin(pointsToFlex[i].x); // should be whatever index the z dimension value is
+        };
+
+        console.log('flexing');        
+        return pointsToFlex;
+    }
+
+    function flexCPS(CPS, flexAmplitude){
+
+    }
 
     // Lathe geometry helper functions =========================================
     function testBezierCurve(cp,numSegs) {
@@ -238,7 +258,9 @@ function eqwangKoi(scaleMaterial, finMaterial) {
     /// Body! ==================================================================
 
     var koiBodyPoints = makeKoiBodyPoints();
-    var koiBodyGeom = new THREE.LatheGeometry( getPoints(koiBodyPoints) );
+    koiBodyPoints = getPoints(koiBodyPoints);
+    koiBodyPoints = flex(koiBodyPoints, bodyFlexAmp);
+    var koiBodyGeom = new THREE.LatheGeometry( koiBodyPoints );
     var scaleMaterialClone = scaleMaterial.clone();
     var koiBody = new THREE.Mesh (koiBodyGeom, scaleMaterialClone);
     
@@ -268,7 +290,10 @@ function eqwangKoi(scaleMaterial, finMaterial) {
     /// Top fin! ===============================================================
 
     var koiTopFinPoints = makeKoiTopFinPoints();
-    var koiTopFinGeom = new THREE.LatheGeometry( getPoints(koiTopFinPoints) );
+    var koiTopFinPoints = getPoints(koiTopFinPoints);
+    console.log(koiTopFinPoints);
+    // var koiTopFinPoints = flex(koiTopFinPoints, 20);
+    var koiTopFinGeom = new THREE.LatheGeometry( koiTopFinPoints );
     var finMaterialClone = finMaterial.clone();
     var koiTopFin = new THREE.Mesh (koiTopFinGeom, finMaterialClone);
 
