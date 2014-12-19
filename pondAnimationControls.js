@@ -29,9 +29,8 @@ var aniParams = {
     koiInitialX:0,
     koiInitialY:0,
     koiInitialZ:0,
-    lilypadInitialX:0,
-    lilypadInitialY:-10,
-    lilypadInitialZ:-22,
+    lilypad1InitialY:-20,
+    lilypad2InitialY:-20, 
     lastparam: null // because javascript syntax. delete this later
 };
 
@@ -68,10 +67,10 @@ function setKoiPosition(time) {
 
 function setLilypadPosition(time) {
 
-    lilypad1.position.y += getRandomInt(-10, 10)/100;
+    lilypad1.position.y = aniParams.lilypad1InitialY + .5*Math.sin(time); 
     animationState.lilypad1Positiony = lilypad1.position.y;
 
-    lilypad2.position.y += getRandomInt(-10, 10)/100;
+    lilypad2.position.y = aniParams.lilypad2InitialY + .5*Math.sin(time + 2); 
     animationState.lilypad2Positiony = lilypad2.position.y;
 
 }
@@ -88,7 +87,7 @@ function updateState(){
     animationState.time += aniParams.deltaT;
     if (animationState.time >= 28) {return;}
     setKoiPosition(animationState.time);
-    setLilypadPosition();
+    setLilypadPosition(animationState.time);
     console.log("Time: "+animationState.time+" and koiPositionX: "+animationState.koiPositionX);
 }
 
