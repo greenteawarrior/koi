@@ -4,13 +4,17 @@ Emily Wang
 December 2014
 
 Code for animating the koi pond.
+This script builds upon code from the animation code in CS307, utilizing both
+positional and derivative techniques.
 
-lilypads
-1. sine wave y translation
-2. sine wave x rotation
+Lilypad animations:
+* sine wave y translation
+* sine wave x rotation
 
-koi skeletal animation
-1. sine wave 
+Koi animations:
+* swimming forward (translation)
+* optional: top and side fins moving from side to side as the fish swims (rotations)
+* (future implementations) koi skeletal animation! may require a revamp of the koi geometry design
 
 */
 
@@ -34,9 +38,7 @@ var aniParams = {
     lilypad1InitialYRot: 0,
 
     lilypad2InitialY:-20, 
-    lilypad2InitialYRot: 0,
-
-    lastparam: null // because javascript syntax. delete this later
+    lilypad2InitialYRot: 0
 };
 
 // State variables of the animation
@@ -59,9 +61,7 @@ function resetAnimationState(){
         lilypad2PositionX: getRandomInt(-7, 7),
         lilypad2PositionY: -20,
         lilypad2PositionZ: getRandomInt(-7, 7),
-        lilypad2RotationY: Math.PI,
-
-        lastParam: null
+        lilypad2RotationY: Math.PI
     };
 }
 
@@ -71,13 +71,24 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+// Function for enabling the koi to swim forward
 function setKoiPosition(time) {
     koiPositionZ = aniParams.koiInitialZ - aniParams.koiVelocityZ * time
     koi.position.z = koiPositionZ;
     animationState.koiPositionZ = koiPositionZ;
 }
 
+
+/* 
+This function enables the koi's side fins to move side to side as it swims forward.
+Design note and area of future improvement: However, re-rendering the koi so often causes
+the scene to be laggy... however in order to keep the koi as one function the rotations for
+the side fins need to be passed in. One way to make this faster would be to create the side fins
+as their own global variables in the scene so they're updated with a transformation rather than 
+re-rendered at every timestep.
+*/
 function setKoiPositionWithSideRotations(time) {
+
     // things that get updated in this timestep
     koiPositionZ = aniParams.koiInitialZ - aniParams.koiVelocityZ * time
     animationState.koiPositionZ = koiPositionZ;
@@ -97,6 +108,10 @@ function setKoiPositionWithSideRotations(time) {
     scene.add(koi);
 }
 
+/*
+The lilypads will bob up/down and also tilt, as if a gentle wave through the pond is
+moving them over time.
+*/
 function setLilypadPosition(time) {
     // lilypads bounce up and down according to a sinusoid (y translations)
     lilypad1.position.y = aniParams.lilypad1InitialY + .5*Math.sin(time); 
@@ -162,6 +177,6 @@ TW.setKeyboardCallback("1",oneStep,"advance by one step");
 TW.setKeyboardCallback("g",animate,"go:  start animation");
 TW.setKeyboardCallback(" ",stopAnimation,"stop animation");
 
+// GUI for selecting whether fin rotations are desired or not
 var gui = new dat.GUI();
-
 gui.add(finRotations,"finRotationsOn").onChange(resetAnimationState);

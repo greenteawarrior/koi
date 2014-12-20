@@ -1,5 +1,7 @@
 /*
 A fish made with THREE.js with a given scale material and fin material. 
+December 19, 2014 version
+
 Copyright (C) 2014, Emily Wang
 This program is released under the GNU General Public License (GPL).
 
