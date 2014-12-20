@@ -1,7 +1,7 @@
 /*
 CS307 Project - Koi Pond!
 Emily Wang
-December 2014
+December 19th, 2014
 
 Code for a koi pond (see koiAnimationControls.js for the animation business).
 
@@ -40,12 +40,32 @@ var koi;
 var lilypad1;
 var lilypad2;
 
+// fin rotations for the koi body parts
+var finRotations = {finRotationsOn: false,
+
+                    topX: 3*Math.PI/2, 
+                    topY: 0,
+                    topZ: Math.PI,
+
+                    side0X: 5*Math.PI/4, 
+                    side0Y: 0,
+                    side0Z: Math.PI/2,
+
+                    side1X: 5*Math.PI/4, 
+                    side1Y: 0,
+                    side1Z: Math.PI/2,
+
+                    side2X: 5*Math.PI/4, 
+                    side2Y: 0,
+                    side2Z: Math.PI/2
+                    }
+
 function makeScene() {
     scene.remove(koi);
     scene.remove(lilypad1);
     scene.remove(lilypad2);
 
-    koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
+    koi = eqwangKoi(purpleScaleMaterial, sparkleMaterial, finRotations);
     koi.name = "koi";
     koi.position.set(0, -25, 0);
     koi.scale.set(.5, .5, .5);
@@ -77,48 +97,29 @@ scene.add(pondCubeMesh);
 
 // Rocks! ======================================================================
 
-function makeRock() {
-    // adapted the generatePoints() function from the convex geometry examples
-
-    // add 10 random spheres
-    var points = [];
-    for (var i = 0; i < 20; i++) {
-        var randomX = -15 + Math.round(Math.random() * 30);
-        var randomY = -15 + Math.round(Math.random() * 30);
-        var randomZ = -15 + Math.round(Math.random() * 30);
-
-        points.push(new THREE.Vector3(randomX, randomY, randomZ));
-    }
-
-    // use the same points to create a convexgeometry
-    var hullGeometry = new THREE.ConvexGeometry(points);
-    hullMesh = new THREE.Mesh (hullGeometry, rockMaterial);
-    return hullMesh;
-}
-
 for (var i=-5; i<5; i++){
-    rock = makeRock();
+    rock = makeRock(rockMaterial);
     rock.scale.set(.45, .45, .45);
     rock.position.set(i*10, -14, 42);
     scene.add(rock);
 }
 
 for (var i=-5; i<5; i++){
-    rock = makeRock();
+    rock = makeRock(rockMaterial);
     rock.scale.set(.45, .45, .45);
     rock.position.set(i*10, -14, -42);
     scene.add(rock);
 }
 
 for (var i=-5; i<5; i++){
-    rock = makeRock();
+    rock = makeRock(rockMaterial);
     rock.scale.set(.45, .45, .45);
     rock.position.set(42, -14, i*10);
     scene.add(rock);
 }
 
 for (var i=-5; i<5; i++){
-    rock = makeRock();
+    rock = makeRock(rockMaterial);
     rock.scale.set(.45, .45, .45);
     rock.position.set(-42, -14, i*10);
     scene.add(rock);
@@ -141,4 +142,4 @@ var state = TW.cameraSetup(renderer,
                             miny: -8, maxy: 3,
                             minz: -30, maxz: 30});
 
-TW.viewFromAbove();
+TW.viewFromAboveFrontSide();

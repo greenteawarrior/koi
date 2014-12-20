@@ -14,6 +14,23 @@ Note! Make sure that eqwangKoi.js is also loaded. It contains eqwangKoi() and
 isPowerOf2() and textureMaterial(), which are all necessary for this code to work. :)
 */
 
+var finRotations = {topX: 3*Math.PI/2, 
+                    topY: 0,
+                    topZ: Math.PI,
+
+                    side0X: 5*Math.PI/4, 
+                    side0Y: 0,
+                    side0Z: Math.PI/3,
+
+                    side1X: 5*Math.PI/4, 
+                    side1Y: 0,
+                    side1Z: Math.PI/2,
+
+                    side2X: 5*Math.PI/4, 
+                    side2Y: 0,
+                    side2Z: Math.PI/2
+                    }
+
 /// Materials! =================================================================
 // textureMaterial is a helper function in eqwangKoi.js
 // these images should be in the same directory
@@ -28,7 +45,7 @@ var renderer = new THREE.WebGLRenderer();
 TW.mainInit(renderer,scene);
 
 /// koi! =======================================================================
-var koiFrame = eqwangKoi(purpleScaleMaterial, sparkleMaterial);
+var koiFrame = eqwangKoi(purpleScaleMaterial, sparkleMaterial, finRotations);
 koiFrame.name = "koi";
 scene.add(koiFrame);
 
@@ -64,4 +81,5 @@ var state = TW.cameraSetup(renderer,
                             minz: -0, maxz: 44});
 
 TW.viewFromSide();
+// TW.viewFromAbove();
 // rendering happens in the texture material callback in eqwangKoi.js!
