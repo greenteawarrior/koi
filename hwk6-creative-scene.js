@@ -33,10 +33,10 @@ var finRotations = {topX: 3*Math.PI/2,
 
 /// Materials! =================================================================
 // textureMaterial is a helper function in eqwangKoi.js
-// these images should be in the same directory
-var purpleScaleMaterial = textureMaterial('koiPurpleSeamlessTexture.jpg',3, 4);
-var sparkleMaterial = textureMaterial('silverSparkleTexture.jpg',1, 1);
-var waterMaterial = textureMaterial('riverBottomTexture.jpg', 1, 1);
+// these images should be in the textures subdirectory
+var purpleScaleMaterial = textureMaterial('textures/koiPurpleSeamlessTexture.jpg',3, 4);
+var sparkleMaterial = textureMaterial('textures/silverSparkleTexture.jpg',1, 1);
+var waterMaterial = textureMaterial('textures/riverBottomTexture.jpg', 1, 1);
 waterMaterial.side = THREE.BackSide;
 
 /// scene! =====================================================================
