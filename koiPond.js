@@ -2,6 +2,10 @@
 CS307 Project - Koi Pond!
 Emily Wang
 December 19th, 2014
+February 3, 2015 - Updating texture image filepaths
+
+TODO: Update comments and clean up code structure
+TODO: Skeletal animation *_*
 
 Code for a koi pond (see koiAnimationControls.js for the animation business).
 
@@ -17,15 +21,14 @@ isPowerOf2() and textureMaterial(), which are all necessary for this code to wor
 
 /// Materials! =================================================================
 // textureMaterial is a helper function in eqwangKoi.js
-// these images should be in the same directory
-// var bgMaterial = textureMaterial('grass.jpg', 1, 1);
-var bgMaterial = textureMaterial('skyGrassPond.jpg', 1, 1);
+// these images should be in the textures subdirectory
+var bgMaterial = textureMaterial('textures/skyGrassPond.jpg', 1, 1);
 
-var purpleScaleMaterial = textureMaterial('koiPurpleSeamlessTexture.jpg',3, 4);
-var sparkleMaterial = textureMaterial('silverSparkleTexture.jpg',1, 1);
-var waterMaterial = textureMaterial('riverBottomTexture.jpg', 1, 1);
-var rockMaterial = textureMaterial('rock.jpg', 1, 1);
-var skyMaterial = textureMaterial('sky.jpg', 1, 1);
+var purpleScaleMaterial = textureMaterial('textures/koiPurpleSeamlessTexture.jpg',3, 4);
+var sparkleMaterial = textureMaterial('textures/silverSparkleTexture.jpg',1, 1);
+var waterMaterial = textureMaterial('textures/riverBottomTexture.jpg', 1, 1);
+var rockMaterial = textureMaterial('textures/rock.jpg', 1, 1);
+var skyMaterial = textureMaterial('textures/sky.jpg', 1, 1);
 
 waterMaterial.side = THREE.BackSide;
 bgMaterial.side = THREE.BackSide;

@@ -16,7 +16,7 @@
     <script src="http://cs.wellesley.edu/~cs307/threejs/libs/three.min.js"></script>
     <script src="http://cs.wellesley.edu/~cs307/threejs/libs/tw.js"></script>
     <script src="http://cs.wellesley.edu/~cs307/threejs/libs/OrbitControls.js"></script>
-    <script src="lilypad.js"></script>
+    <script src="../lilypad.js"></script>
   </head>
 
 <body>
@@ -28,7 +28,7 @@ var renderer = new THREE.WebGLRenderer();
 
 TW.mainInit(renderer,scene);
 
-lilypad = makeLilypad();
+lilypad = makeLilypad([0,0,0]);
 lilypad.name = "lilypad";
 scene.add(lilypad);
 
